@@ -1,0 +1,330 @@
+/* local/modules/devtech.clearim/admin_templates/clearim/style.css */
+
+.devtech-clearim-container {
+    padding: 15px;
+}
+
+.devtech-stats-block {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.devtech-stats-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #2fc6f6;
+    color: #333;
+}
+
+.devtech-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.devtech-stat-card {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.devtech-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.devtech-stat-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2fc6f6;
+    margin-bottom: 8px;
+}
+
+.devtech-stat-label {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.devtech-stat-date {
+    font-size: 11px;
+    color: #999;
+}
+
+.devtech-warning {
+    background: #fff3cd;
+    border: 1px solid #ffecb5;
+    color: #856404;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.devtech-warning.success {
+    background: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.devtech-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.devtech-table th,
+.devtech-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.devtech-table th {
+    background: #f5f5f5;
+    font-weight: bold;
+    color: #333;
+}
+
+.devtech-table tr:hover {
+    background: #f9f9f9;
+}
+
+.devtech-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.devtech-badge-danger {
+    background: #dc3545;
+    color: #fff;
+}
+
+.devtech-badge-warning {
+    background: #ffc107;
+    color: #333;
+}
+
+.devtech-badge-info {
+    background: #17a2b8;
+    color: #fff;
+}
+
+.devtech-progress-bar {
+    background: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.devtech-progress-fill {
+    background: #2fc6f6;
+    height: 20px;
+    transition: width 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 11px;
+}
+
+.devtech-action-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.devtech-action-card {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.devtech-action-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.devtech-action-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.devtech-action-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.devtech-action-desc {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.devtech-action-btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.devtech-action-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.devtech-action-btn-files {
+    background: #ff9800;
+    color: #fff;
+}
+
+.devtech-action-btn-files:hover:not(:disabled) {
+    background: #f57c00;
+}
+
+.devtech-action-btn-messages {
+    background: #2196f3;
+    color: #fff;
+}
+
+.devtech-action-btn-messages:hover:not(:disabled) {
+    background: #1976d2;
+}
+
+.devtech-action-btn-chats {
+    background: #9c27b0;
+    color: #fff;
+}
+
+.devtech-action-btn-chats:hover:not(:disabled) {
+    background: #7b1fa2;
+}
+
+.devtech-action-btn-full {
+    background: #dc3545;
+    color: #fff;
+}
+
+.devtech-action-btn-full:hover:not(:disabled) {
+    background: #c82333;
+}
+
+.devtech-settings-bar {
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Стили для уведомлений */
+.devtech-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    z-index: 10002;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    animation: slideIn 0.3s ease;
+    max-width: 400px;
+}
+
+.devtech-notification-success {
+    background: #28a745;
+    color: white;
+}
+
+.devtech-notification-error {
+    background: #dc3545;
+    color: white;
+}
+
+.devtech-notification-hide {
+    animation: slideOut 0.3s ease forwards;
+}
+
+/* Стили для лоадера */
+.devtech-loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.devtech-loader-content {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.devtech-loader-spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 15px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #2fc6f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.devtech-loader-subtitle {
+    font-size: 12px;
+    color: #666;
+    margin-top: 8px;
+}
+
+/* Анимации */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
