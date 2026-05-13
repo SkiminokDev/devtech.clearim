@@ -32,8 +32,9 @@ if ($isAjax && $_SERVER['REQUEST_METHOD'] === 'POST') {
 	// Логирование для отладки (можно закомментировать в продакшене)
 	error_log("AJAX request received: " . print_r($_POST, true));
 
-	// Проверка sessid
-	if (!check_bitrix_sessid()) {
+	// Проверка sessid - проверяем sessid из POST данных
+	$sessid = $_POST['sessid'] ?? '';
+	if (empty($sessid) || !check_bitrix_sessid($sessid)) {
 		echo json_encode(['success' => false, 'message' => 'Ошибка сессии (sessid)']);
 		die();
 	}

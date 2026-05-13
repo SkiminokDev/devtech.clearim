@@ -5,6 +5,14 @@ var DevTechClearIm = (function() {
 
   // Конфигурация
   var config = window.DevTechClearImConfig || {};
+  
+  // URL для AJAX запросов - используем относительный путь от корня сайта
+  var ajaxUrl = '/local/modules/devtech.clearim/admin/clearim_cleaner.php';
+  
+  // Проверяем, существует ли конфигурация с sessid
+  if (!config.bitrixSessid) {
+    console.warn('DevTech ClearIm: bitrix_sessid не найден в конфигурации. Будет использоваться пустое значение.');
+  }
 
   // Сообщения для подтверждения
   var confirmMessages = {
@@ -127,6 +135,14 @@ var DevTechClearIm = (function() {
     // Показываем индикатор загрузки
     var loader = showLoader(btnElement);
 
+    // Проверяем наличие sessid перед отправкой
+    if (!config.bitrixSessid) {
+      console.error('DevTech ClearIm: bitrix_sessid отсутствует!');
+      showNotification('❌ Ошибка: Не найден sessid. Обновите страницу.', 'error');
+      hideLoader(loader, btnElement);
+      return false;
+    }
+
     // Формируем данные для отправки
     var formData = new FormData();
     formData.append('action_type', actionType);
@@ -140,11 +156,12 @@ var DevTechClearIm = (function() {
     console.log('📤 Отправка AJAX-запроса:', {
       action: actionType,
       settings: settings,
-      url: window.location.href
+      url: ajaxUrl,
+      sessidPresent: !!config.bitrixSessid
     });
 
     // Отправляем запрос
-    fetch(window.location.href, {
+    fetch(ajaxUrl, {
       method: 'POST',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
