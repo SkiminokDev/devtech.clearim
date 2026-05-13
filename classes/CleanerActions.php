@@ -107,22 +107,45 @@ class CleanerActions
 	{
 		$result = ['success' => false, 'message' => '', 'details' => []];
 
-		$chatProcessor = new ChatProcessor($dryRun);
-		$spamChatIds = $chatProcessor->findSpamChats($dateLimit, $batchLimit);
-
-		if (!empty($spamChatIds)) {
-			$relationProcessor = new RelationProcessor($dryRun);
-			$relationIds = $relationProcessor->findByChatIds($spamChatIds);
-			$result['details']['relations_deleted'] = $relationProcessor->process($relationIds);
-
-			$sessionProcessor = new SessionProcessor($dryRun);
-			$sessionIds = $sessionProcessor->findByChatIds($spamChatIds);
-			$result['details']['sessions_deleted'] = $sessionProcessor->process($sessionIds);
-
-			$result['details']['chats_deleted'] = $chatProcessor->process($spamChatIds);
+		if (!Loader::includeModule('im')) {
+			$result['message'] = 'Модуль im не установлен';
+			return $result;
 		}
 
-		$result['message'] = $dryRun ? 'Тестовый режим: найдено чатов для удаления' : 'Чаты успешно удалены';
+		// Лимит 30 чатов за одну операцию
+		$limit = 30;
+		$deletedCount = 0;
+		$errorMessages = [];
+
+		$dbChats = \Bitrix\Im\Model\ChatTable::getList([
+			'order' => ['ID' => 'DESC'],
+			'select' => ['ID', 'DISK_FOLDER_ID'],
+			'limit' => $limit
+		]);
+
+		while ($chat = $dbChats->fetch()) {
+			if ($dryRun) {
+				$deletedCount++;
+				continue;
+			}
+
+			try {
+				\CIMChat::deleteChat($chat['ID']);
+				$deletedCount++;
+			} catch (\Exception $e) {
+				$errorMessages[] = "Ошибка удаления чата {$chat['ID']}: " . $e->getMessage();
+			}
+		}
+
+		$result['details']['chats_deleted'] = $deletedCount;
+		
+		if (!empty($errorMessages)) {
+			$result['details']['errors'] = $errorMessages;
+		}
+
+		$result['message'] = $dryRun 
+			? 'Тестовый режим: найдено чатов для удаления: ' . $deletedCount 
+			: 'Чаты успешно удалены (' . $deletedCount . ')';
 		$result['success'] = true;
 
 		return $result;

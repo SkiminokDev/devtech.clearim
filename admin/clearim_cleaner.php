@@ -19,15 +19,24 @@ Loc::loadMessages(__FILE__);
 $moduleId = 'devtech.clearim';
 
 // Определяем AJAX запрос с самого начала
-$isAjax = ($_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest' || $_REQUEST['ajax'] === 'Y');
+$isAjax = (
+    (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') ||
+    (isset($_REQUEST['ajax']) && $_REQUEST['ajax'] === 'Y')
+);
 
 // Обработка AJAX запросов - это должно быть ПЕРВЫМ и ЕДИНСТВЕННЫМ обработчиком
-if ($isAjax && $_SERVER['REQUEST_METHOD'] === 'POST' && check_bitrix_sessid()) {
-	header('Content-Type: application/json');
+if ($isAjax && $_SERVER['REQUEST_METHOD'] === 'POST') {
+	header('Content-Type: application/json; charset=UTF-8');
 	header('X-Content-Type-Options: nosniff');
 
 	// Логирование для отладки (можно закомментировать в продакшене)
 	error_log("AJAX request received: " . print_r($_POST, true));
+
+	// Проверка sessid
+	if (!check_bitrix_sessid()) {
+		echo json_encode(['success' => false, 'message' => 'Ошибка сессии (sessid)']);
+		die();
+	}
 
 	// Проверка установки модулей
 	if (!Loader::includeModule($moduleId)) {
