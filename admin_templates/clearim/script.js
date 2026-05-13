@@ -272,6 +272,9 @@ BX.ready(function() {
     };
   })();
 
+  // Экспортируем в глобальную область видимости для использования в onclick
+  window.DevTechClearIm = DevTechClearIm;
+
   // Инициализация при загрузке документа
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
