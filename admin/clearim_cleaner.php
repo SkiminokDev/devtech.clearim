@@ -188,19 +188,14 @@ $daysToKeepDefault = (int)\COption::GetOptionString($moduleId, 'days_to_keep', 3
 $batchLimitDefault = (int)\COption::GetOptionString($moduleId, 'batch_limit', 50);
 $dryRunDefault = \COption::GetOptionString($moduleId, 'dry_run_default', 'N') === 'Y';
 
-// Подключаем CSS и JS
+// Подключаем CSS
 $cssFile = '/local/modules/devtech.clearim/admin_templates/clearim/style.css';
-$jsFile = '/local/modules/devtech.clearim/admin_templates/clearim/script.js';
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'] . $cssFile)) {
 	$APPLICATION->SetAdditionalCSS($cssFile);
 }
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile)) {
-	$APPLICATION->AddHeadScript($jsFile);
-}
-
-// Подключаем HTML шаблон
+// Подключаем HTML шаблон (внутри него будет определен window.DevTechClearImConfig и подключен JS)
 $templateFile = __DIR__ . '/../admin_templates/clearim/template.php';
 if (file_exists($templateFile)) {
 	include($templateFile);
