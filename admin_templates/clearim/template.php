@@ -245,3 +245,11 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
     moduleId: '<?= $moduleId ?>'
   };
 </script>
+
+<?php
+// Подключаем JS после определения конфигурации
+$jsFile = '/local/modules/devtech.clearim/admin_templates/clearim/script.js';
+if (file_exists($_SERVER['DOCUMENT_ROOT'] . $jsFile)) {
+	$APPLICATION->AddHeadScript($jsFile);
+}
+?>
